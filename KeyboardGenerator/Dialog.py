@@ -2,7 +2,7 @@ import os, sys
 import time
 from importlib import reload
 import typing
-from PySide2 import QtCore, QtGui, QtWidgets, QtSvg, QtWebEngineWidgets
+from PySide6 import QtCore, QtGui, QtWidgets, QtSvg, QtSvgWidgets, QtWebEngineWidgets
 import xml.etree.ElementTree as ET
 import FreeCADGui
 import FreeCAD
@@ -407,21 +407,21 @@ class JSONHighlighter(QtGui.QSyntaxHighlighter):
         numberFormat = QtGui.QTextCharFormat()
         numberFormat.setForeground(userConfig['Number'])
         self.rules.append(
-            (QtCore.QRegExp(r"\b[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\b"), numberFormat))
+            (QtCore.QRegularExpression(r"\b[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\b"), numberFormat))
 
         # Strings
         stringFormat = QtGui.QTextCharFormat()
         stringFormat.setForeground(userConfig['String'])
-        self.rules.append((QtCore.QRegExp(r"\".*\""), stringFormat))
+        self.rules.append((QtCore.QRegularExpression(r"\".*\""), stringFormat))
         
         # Keys
         keyFormat = QtGui.QTextCharFormat()
         keyFormat.setForeground(userConfig['Keyword'])
-        self.rules.append((QtCore.QRegExp(r"\b[a-zA-Z_][a-zA-Z0-9_]*\s*(?=:)\b"), keyFormat))
+        self.rules.append((QtCore.QRegularExpression(r"\b[a-zA-Z_][a-zA-Z0-9_]*\s*(?=:)\b"), keyFormat))
 
     def highlightBlock(self, text):
         for pattern, format in self.rules:
-            expression = QtCore.QRegExp(pattern)
+            expression = QtCore.QRegularExpression(pattern)
             index = expression.indexIn(text)
             while index >= 0:
                 length = expression.matchedLength()
@@ -525,7 +525,6 @@ class UiDialog(QtWidgets.QDialog):
     def setupUi(self):
         self.keyboardQ = KeyboardQ.KeyboardQ()
         self.gLayoutMain = QtWidgets.QGridLayout(self)
-        self.gLayoutMain.setMargin(0)
 
         self.toolBox = QtWidgets.QToolBox(self)
         self.mainP1 = QtWidgets.QWidget()
@@ -538,7 +537,7 @@ class UiDialog(QtWidgets.QDialog):
         self.graphicsView.setRenderHint(QtGui.QPainter.Antialiasing)
 
         self.svgPlateThickness = SvgPlateThickness.SvgPlateThickness()
-        self.qsvgPlateThickness = QtSvg.QSvgWidget()
+        self.qsvgPlateThickness = QtSvgWidgets.QSvgWidget()
         self.qsvgPlateThickness.setSizePolicy(
             QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
         self.qsvgPlateThickness.hide() # Although empty and invisible gets in the way of mouse events if not hidden.
@@ -1205,7 +1204,7 @@ Settings are automatically and immediately saved to %AppData%/Roaming/FreeCAD/Ke
         self.lblSwitch.setText('Switch')
         self.gLayoutCutout.addWidget(self.lblSwitch, 0, 0, 1, 1)
 
-        self.qsvgRightMouseButton = QtSvg.QSvgWidget(svgFolder+'mouse-left-click.svg')
+        self.qsvgRightMouseButton = QtSvgWidgets.QSvgWidget(svgFolder+'mouse-left-click.svg')
         lmbRenderer = self.qsvgRightMouseButton.renderer()
         lmbRenderer.setAspectRatioMode(QtCore.Qt.KeepAspectRatio)
         self.qsvgRightMouseButton.setMaximumHeight(20)
@@ -1237,7 +1236,7 @@ Settings are automatically and immediately saved to %AppData%/Roaming/FreeCAD/Ke
         </ul>''')
         self.gLayoutCutout.addWidget(self.lblStab, 2, 0, 1, 1)
 
-        self.qsvgLeftMouseButton = QtSvg.QSvgWidget(svgFolder+'mouse-right-click.svg')
+        self.qsvgLeftMouseButton = QtSvgWidgets.QSvgWidget(svgFolder+'mouse-right-click.svg')
         lmbRenderer = self.qsvgLeftMouseButton.renderer()
         lmbRenderer.setAspectRatioMode(QtCore.Qt.KeepAspectRatio)
         self.gLayoutCutout.addWidget(self.qsvgLeftMouseButton, 2, 1, 1, 1)

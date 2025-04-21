@@ -1,18 +1,18 @@
 # Inspired by kb.html from KLE
 from typing import List, NamedTuple
-from PySide2.QtGui import QPolygonF
+from PySide6.QtGui import QPolygonF
 from dataclasses import dataclass
 from functools import cmp_to_key
 from pykle_serial import serial
 import typing
 import xml.etree.ElementTree as ET
 import math
-from PySide2 import QtGui, QtCore
+from PySide6 import QtGui, QtCore
 import FreeCAD
 from enum import Enum
-from PySide2.QtCore import QPointF as Qpf
+from PySide6.QtCore import QPointF as Qpf
 from typing import List
-from PySide2 import QtWidgets
+from PySide6 import QtWidgets
 import Key
 import re
 

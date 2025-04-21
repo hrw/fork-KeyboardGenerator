@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 import math
-from PySide2 import QtGui, QtCore
+from PySide6 import QtGui, QtCore
 from enum import Enum
 import os, sys, inspect
 

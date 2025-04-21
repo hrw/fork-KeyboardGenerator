@@ -2,8 +2,8 @@ from pykle_serial import serial
 import typing
 from enum import Enum
 from typing import List
-from PySide2.QtCore import QPointF as Qpf
-from PySide2 import QtGui, QtCore
+from PySide6.QtCore import QPointF as Qpf
+from PySide6 import QtGui, QtCore
 from abc import abstractmethod
 
 class Component(Enum):

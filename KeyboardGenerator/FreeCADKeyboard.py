@@ -4,7 +4,7 @@ from enum import Enum
 from typing import List, final, Dict, Tuple
 from itertools import groupby
 
-from PySide2 import QtGui, QtCore, QtWidgets
+from PySide6 import QtGui, QtCore, QtWidgets
 import Part
 import Draft
 import FreeCAD
